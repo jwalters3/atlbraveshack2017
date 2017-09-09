@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ionic AWS Starter
 
 This Ionic starter comes with a pre-configured [AWS Mobile Hub](https://aws.amazon.com/mobile/) project set up to use Amazon DynamoDB, S3, Pinpoint, and Cognito.
@@ -115,3 +116,6 @@ aws s3 cp --recursive ./www s3://WEBSITE_BUCKET
 ```
 
 Where `WEBSITE_BUCKET` is an S3 bucket configured with static hosting.
+=======
+# atlbraveshack2017
+>>>>>>> 2ecd54b91bc0dbcff96f2fe2d490e732065a9666
