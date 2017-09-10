@@ -5,6 +5,7 @@ import { DynamoDB } from './aws.dynamodb';
 export class Photos {
 
   private photosTable: string = 'bftbs-photos';
+  private voteTable: string = 'bftbs-photos';
 
   constructor(public db: DynamoDB) {
       //this.refreshData();
@@ -28,6 +29,43 @@ export class Photos {
             resolve(data.Items);
         }).catch((err) => {
             console.log(err);
+        });
+    })
+  }
+
+  unvote(photoId, user) {
+    let id = "";
+    return new Promise((resolve, reject) => {
+        this.db.getDocumentClient().delete({
+        'TableName': this.voteTable,
+        'Key': {
+            'photoId': photoId, 
+            'user': user
+        }
+        }).promise().then((data) => {
+            resolve(data)
+            //this.items.splice(index, 1);
+        }).catch((err) => {
+            reject(err);
+            console.log('there was an error', err);
+        });
+    })
+  }
+
+  vote(photoId, user) {
+    let id = photoId + '-' + user;
+    return new Promise((resolve, reject) => {
+        this.db.getDocumentClient().put({
+            'TableName': this.voteTable,
+            'Item': { photoId: photoId, id: id, user: user, created: new Date() },
+            'ConditionExpression': 'attribute_not_exists(id)'
+        }, (err, data) => {
+            if (err) { 
+                console.log(err);
+                reject(err);
+             } else {
+                resolve(data);
+             }
         });
     })
   }

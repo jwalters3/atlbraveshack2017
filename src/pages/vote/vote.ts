@@ -59,6 +59,7 @@ export class VotePage {
     console.log(item);
       if (item.voted) {
         item.voted = false;
+        this.photos.voteForPhoto(item.id, this.user.getUsername())
       } else {
         item.voted = true;
       }
