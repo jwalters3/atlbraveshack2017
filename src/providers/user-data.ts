@@ -3,17 +3,17 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class UserData {
-  inning: any = 1;
+  inning: any = 3;
   
-  constructor(
-    
-  ) {}
+  constructor(    
+  ) {    
+  }
 
-  getInning() {
+  getInning() {     
       return this.inning;
   }
-  setInning(inning) {
-      this.inning = inning;
+  setInning(inning) {    
+      this.inning = inning;      
   }
   
   nextInning() {

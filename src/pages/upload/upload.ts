@@ -25,7 +25,7 @@ export class UploadPage {
   public selectedPhoto: Blob;
   public attributes: any;
   public sub: string = null;
-  public currentEvent: string = '0001';
+  public currentEvent: string;
   public name: string = 'Loading...';
   public description: string = 'Loading...';
   private photoTable: string = 'bftbs-photos';
@@ -106,10 +106,10 @@ export class UploadPage {
     return result.toLowerCase() + '-' + this.user.getUsername() + '-' + this.currentEvent;
   }
 
-  selectPicture() {
+  zzselectPicture() {
     this.showConfirmation();
   }
-  zzselectPicture() {
+  selectPicture() {
     const options: CameraOptions = {
       quality: 100,
       targetHeight: 200,
@@ -158,7 +158,7 @@ export class UploadPage {
 
   upload() {
     let loading = this.loadingCtrl.create({
-      content: 'Uploading image...'
+      content: 'Sending photo...'
     });
     loading.present();
 

@@ -10,16 +10,18 @@ page-vote {
             color: #00447C;
         }
     }
-    
+
     ion-content {
         ion-card {
             .vote {
-                margin-top: -60px;
+                margin-top: -59px;
+                margin-left: -2px;
                 color: white;
             }
             .voted {
-                margin-top: -60px;
-                color: #D31245;
+                margin-top: -59px;
+                margin-left: -2px;
+                color: #EEB111;
             }
         }
     }

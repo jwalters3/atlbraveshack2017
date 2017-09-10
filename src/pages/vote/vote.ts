@@ -34,19 +34,16 @@ export class VotePage {
                 this.voted = false;    
   }
 
-  ionViewDidLoad() {
-    
+  ionViewDidEnter() {
+        console.log('load votes');
         let currentInning = this.events.getInningEvent(this.userData.getInning());
         this.name = currentInning.name;
         this.description = currentInning.description;
         this.currentEvent = currentInning.id;
-        this.refreshTasks();
+        this.getEventPictures();
       }
     
 
-  refreshTasks() {
-    this.getEventPictures();
-  }
   
   getEventPictures() {
     this.photos.getPhotosForEvent(this.events.getActiveEventId()).then(data => {
@@ -59,7 +56,13 @@ export class VotePage {
   }
 
   vote(item) {
-      this.voted = !this.voted;
+    console.log(item);
+      if (item.voted) {
+        item.voted = false;
+      } else {
+        item.voted = true;
+      }
+      //this.voted = !this.voted;
       // to do - save this vote
   }
 

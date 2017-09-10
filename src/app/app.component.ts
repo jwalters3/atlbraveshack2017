@@ -24,7 +24,6 @@ export class MyApp {
     };
 
     platform.ready().then(() => {
-      userData.setInning(1);
       user.isAuthenticated().then(() => {
         console.log('you are authenticated!');
         this.rootPage = TabsPage;

@@ -1,13 +1,14 @@
 
 <ion-header>
+  <div style="padding-top:25px;" padding></div>
     <h3>{{name}}</h3>
     <h4>{{description}}</h4>
 </ion-header>
 
 <ion-content>
-        <ion-card>          
-            <img src="http://via.placeholder.com/300x250"/>        
-            <button (click)="vote(this)" [ngClass]="voted ? 'voted' : 'vote'" ion-button icon-left clear small>
+    <ion-card *ngFor="let i of items;">
+            <img src="{{i.url}}" width="300" height="250"/>        
+            <button (click)="vote(i)" [ngClass]="i.voted ? 'voted' : 'vote'" ion-button icon-left>
               <ion-icon name="thumbs-up"></ion-icon>
               <div>Vote</div>
             </button>                  
