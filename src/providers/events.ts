@@ -9,7 +9,7 @@ export class Events {
   private eventTable: string = 'bftbs-events';
 
   constructor(public db: DynamoDB) {
-      //this.refreshTasks();
+      this.refreshData();
   }
 
   getActiveEvent() {
@@ -18,6 +18,10 @@ export class Events {
 
   getEvents() {
       return this.events;
+  }
+
+  getInningEvent(inning) {
+      return this.events.find(e => { return e.inning === inning; });
   }
 
   refreshData() {

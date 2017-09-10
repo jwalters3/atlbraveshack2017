@@ -24,7 +24,7 @@ export class TasksPage {
               public events: Events,
               public db: DynamoDB) {
 
-    this.refreshTasks();
+    //this.refreshTasks();
   }
 
   refreshData(refresher) {

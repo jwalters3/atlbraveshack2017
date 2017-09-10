@@ -5,6 +5,7 @@ import { Config, LoadingController, NavController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { DynamoDB, User } from '../../providers/providers';
+import { Events } from '../../providers/events';
 import { UserData } from '../../providers/user-data';
 
 declare var AWS: any;
@@ -24,10 +25,10 @@ export class UploadPage {
   public selectedPhoto: Blob;
   public attributes: any;
   public sub: string = null;
-  public eventId: string = '0001';
+  public currentEvent: string = '0001';
   public name: string = 'Loading...';
   public description: string = 'Loading...';
-  private taskTable: string = 'bftbs-events';
+  private photoTable: string = 'bftbs-photos';
 
   constructor(public navCtrl: NavController,
               public user: User,
@@ -35,6 +36,7 @@ export class UploadPage {
               public config: Config,
               public camera: Camera,
               public userData: UserData,
+              public events: Events,
               public loadingCtrl: LoadingController) {
     this.attributes = [];
     this.pictureUrl = null;
@@ -53,25 +55,13 @@ export class UploadPage {
   }
 
   refreshInning() {
-    let currentInning = this.userData.getInning();
-    this.db.getDocumentClient().scan({
-      'TableName': this.taskTable,
-      //'IndexName': 'DateSorted',
-      //'KeyConditionExpression': "#userId = :userId",
-      //'ExpressionAttributeNames': {
-      //  '#userId': 'userId',
-      //},
-      //'ExpressionAttributeValues': {
-      //  ':userId': AWS.config.credentials.identityId
-      //},
-      //'ScanIndexForward': false
-    }).promise().then((data) => {
-      console.log(data.Items);      
-      this.name = data.Items[2].name;
-      this.description = data.Items[2].description;
-    }).catch((err) => {
-      console.log(err);
-    });
+    this.events.refreshData().then(() => {
+      let currentInning = this.events.getInningEvent(this.userData.getInning());
+      this.name = currentInning.name;
+      this.description = currentInning.description;
+      this.currentEvent = currentInning.id;
+    })
+
   }
 
   dataURItoBlob(dataURI) {
@@ -83,6 +73,19 @@ export class UploadPage {
     }
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
   };
+
+
+  generateId() {
+    var len = 16;
+    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charLength = chars.length;
+    var result = "";
+    let randoms = window.crypto.getRandomValues(new Uint32Array(len));
+    for(var i = 0; i < len; i++) {
+      result += chars[randoms[i] % charLength];
+    }
+    return result.toLowerCase() + this.currentEvent;
+  }
 
   selectPicture() {
     const options: CameraOptions = {
@@ -127,20 +130,27 @@ export class UploadPage {
     loading.present();
 
     if (this.selectedPhoto) {
+      let id = this.generateId();
+      let route = 'public/' + this.sub + '/' + id;
       this.s3.upload({
-        'Key': 'public/' + this.sub + '/',
+        'Key': route,
         'Body': this.selectedPhoto,
         'ContentType': 'image/jpeg'
       }).promise().then((data) => {
         //this.refreshAvatar();
         console.log('upload complete:', data);
+        this.db.getDocumentClient().put({
+          'TableName': this.photoTable,
+          'Item': { id: id, user: this.user.getUsername(), url: data.Location },
+          'ConditionExpression': 'attribute_not_exists(id)'
+        }, (err, data) => {
+          if (err) { console.log(err); }
+        });
         loading.dismiss();
       }, err => {
         console.log('upload failed....', err);
         loading.dismiss();
       });
     }
-    loading.dismiss();
-
   }
 }
