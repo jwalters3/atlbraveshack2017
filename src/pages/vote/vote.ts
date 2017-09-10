@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, ModalController } from 'ionic-angular';
 import { DynamoDB, User } from '../../providers/providers';
-
-declare var AWS: any;
+import { Events } from '../../providers/events';
+import { Photos } from '../../providers/photos';
 
 @Component({
   selector: 'page-vote',
@@ -14,12 +14,14 @@ export class VotePage {
   public items: any;
   public refresher: any;
   public voted: any;
-  private taskTable: string = 'bftbs-events';
+  private photosTable: string = 'bftbs-photos';
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
-              public db: DynamoDB) {
+              public db: DynamoDB,
+              public events: Events,
+              public photos: Photos) {
 
                 this.voted = false;
     this.refreshTasks();
@@ -27,7 +29,17 @@ export class VotePage {
 
 
   refreshTasks() {
+    this.getEventPictures();
+  }
   
+  getEventPictures() {
+    this.photos.getPhotosForEvent(this.events.getActiveEventId()).then(data => {
+      this.items = data;
+      console.log(this.items);
+      if (this.refresher) {
+        this.refresher.complete();
+      }
+    })
   }
 
   vote(item) {

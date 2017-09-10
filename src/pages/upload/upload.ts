@@ -60,6 +60,7 @@ export class UploadPage {
       this.name = currentInning.name;
       this.description = currentInning.description;
       this.currentEvent = currentInning.id;
+      this.events.setActiveEvent(this.currentEvent);
     })
 
   }
@@ -84,7 +85,7 @@ export class UploadPage {
     for(var i = 0; i < len; i++) {
       result += chars[randoms[i] % charLength];
     }
-    return result.toLowerCase() + this.currentEvent;
+    return result.toLowerCase() + '-' + this.user.getUsername() + '-' + this.currentEvent;
   }
 
   selectPicture() {
@@ -141,7 +142,7 @@ export class UploadPage {
         console.log('upload complete:', data);
         this.db.getDocumentClient().put({
           'TableName': this.photoTable,
-          'Item': { id: id, user: this.user.getUsername(), url: data.Location },
+          'Item': { id: id, event: this.events.getActiveEventId(), user: this.user.getUsername(), url: data.Location },
           'ConditionExpression': 'attribute_not_exists(id)'
         }, (err, data) => {
           if (err) { console.log(err); }

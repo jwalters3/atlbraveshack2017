@@ -16,6 +16,10 @@ export class Events {
       return this.events.find(e => { return e.id === this.activeEvent; });
   }
 
+  getActiveEventId() {
+      return this.activeEvent;
+  }
+
   getEvents() {
       return this.events;
   }

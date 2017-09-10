@@ -26,6 +26,7 @@ import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
 import { DynamoDB } from '../providers/aws.dynamodb';
 import { Events } from '../providers/events';
+import { Photos } from '../providers/photos';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { Events } from '../providers/events';
     User,
     Cognito,
     DynamoDB,
-    Events
+    Events,
+    Photos
   ]
 })
 export class AppModule {}
