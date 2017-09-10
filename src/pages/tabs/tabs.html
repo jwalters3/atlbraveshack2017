@@ -1,4 +1,23 @@
-<ion-tabs>
-  <ion-tab [root]="tab1Root" tabTitle="Tasks" tabIcon="list"></ion-tab>
-  <ion-tab [root]="tab2Root" tabTitle="Settings" tabIcon="cog"></ion-tab>
-</ion-tabs>
+
+    <ion-toolbar no-border-top>
+        <ion-buttons left>
+          <button ion-button icon-only>
+            <ion-icon name="arrow-back"></ion-icon>
+          </button>
+        </ion-buttons>
+        <ion-buttons right>
+        <button ion-button>
+          <ion-icon name="refresh"></ion-icon>
+        </button>  
+    </ion-buttons>
+      <ion-title>Battle for the Big Screen</ion-title>      
+    </ion-toolbar>          
+  
+
+    <ion-tabs>
+        <ion-tab [root]="tab1Root" tabTitle="Submit" tabIcon="images"></ion-tab>
+        <ion-tab [root]="tab2Root" tabTitle="Vote" tabIcon="thumbs-up"></ion-tab>
+        <ion-tab [root]="tab3Root" tabTitle="Leaderboard" tabIcon="medal"></ion-tab>
+      
+    </ion-tabs>
+      

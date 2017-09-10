@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { Camera } from '@ionic-native/camera';
 
 import { MyApp } from './app.component';
+import { UploadPage } from '../pages/upload/upload';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { ConfirmPage } from '../pages/confirm/confirm';
@@ -28,6 +29,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     MyApp,
     LoginPage,
     SignupPage,
+    UploadPage,
     ConfirmPage,
     SettingsPage,
     AboutPage,
@@ -44,6 +46,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
   entryComponents: [
     MyApp,
     LoginPage,
+    UploadPage,
     SignupPage,
     ConfirmPage,
     SettingsPage,

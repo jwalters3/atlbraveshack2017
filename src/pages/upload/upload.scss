@@ -1,0 +1,28 @@
+upload {
+
+    .logo {
+        padding: 50px 0px 0px 0px;
+        text-align: center;
+    
+        img {
+          max-width: 250px;
+        }
+      }
+
+    .intro {
+        margin-left: 20px;
+    }
+
+    .theme {
+        padding: 20px 0px;
+        ul {
+            li {
+                list-style: none;
+            }
+        }
+    }
+
+    .button-md-braves-blue {
+        background-color: #00447C;        
+    }
+}
