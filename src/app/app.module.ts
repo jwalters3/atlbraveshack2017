@@ -14,11 +14,14 @@ import { AboutPage } from '../pages/about/about';
 import { AccountPage } from '../pages/account/account';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TasksPage } from '../pages/tasks/tasks';
+import { LeaderboardPage } from '../pages/leaderboard/leaderboard';
 import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
+import { VotePage } from '../pages/vote/vote';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { UserData } from '../providers/user-data';
 import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
 import { DynamoDB } from '../providers/aws.dynamodb';
@@ -28,10 +31,12 @@ import { DynamoDB } from '../providers/aws.dynamodb';
   declarations: [
     MyApp,
     LoginPage,
+    VotePage,
     SignupPage,
     UploadPage,
-    ConfirmPage,
+    ConfirmPage,    
     SettingsPage,
+    LeaderboardPage,
     AboutPage,
     AccountPage,
     TabsPage,
@@ -47,7 +52,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     MyApp,
     LoginPage,
     UploadPage,
+    VotePage,
     SignupPage,
+    LeaderboardPage,
     ConfirmPage,
     SettingsPage,
     AboutPage,
@@ -57,6 +64,7 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     TasksCreatePage
   ],
   providers: [
+    UserData,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

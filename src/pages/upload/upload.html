@@ -1,11 +1,12 @@
 <ion-content>
         
       <div text-center class="logo">
-            <img src="assets/img/braves-250.png" />
+            <img src="assets/img/suntrust.jpg" />
           </div>
 
     <div class="intro">
-            Want to be on the Big Screen? Submit your image for this inning's content and let the votes decide. Snap a picture to enter and vote for your favorites. The top ten will make it onto the big screen for the next inning and win prizes.
+            Want to be on the Big Screen? Submit your best photo for this inning's contest and let the votes decide!
+            Snap a picture below to enter and then vote for your favorites. The top ten will make it onto the big screen for the next inning and win prizes.
           
     </div>
 
@@ -16,7 +17,10 @@
         </ul>        
     </div>
 
-<button ion-button round full color="braves-blue" (click)="upload()">Upload photo</button>
+    <ion-row center>  
+            <ion-col text-center>  
+<button class="upload-button" ion-button round  color="braves-blue" (click)="selectAvatar()">Upload photo</button>
+            </ion-col></ion-row>
 
 
 </ion-content>
