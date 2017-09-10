@@ -9,15 +9,18 @@ upload {
         text-align: center;
     
         img {
-          max-width: 250px;
+          max-width: 100%;
         }
       }
 
     .intro {
-        margin-left: 20px;
+        padding-top: 20px;
+        margin: 0px 15px;
+        font-size: 16px;
     }
 
     .theme {
+        font-size: 16px;
         padding: 20px 0px;
         ul {
             li {
@@ -29,7 +32,6 @@ upload {
     .button-md-braves-blue {
         background-color: #00447C;        
     }
-
     .avatar {
         display: block;
         width: 150px;
@@ -42,5 +44,11 @@ upload {
         margin: 0 auto;
         border: 5px solid #f1f1f1;
         box-shadow: 0 0 5px #999;
+    }
+
+    .upload-button {
+        text-align: center;
+        width: 90%;
+        margin: 0px 20px;
     }
 }

@@ -5,6 +5,7 @@ import { Config, LoadingController, NavController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import { DynamoDB, User } from '../../providers/providers';
+import { UserData } from '../../providers/user-data';
 
 declare var AWS: any;
 declare const aws_user_files_s3_bucket;
@@ -26,16 +27,19 @@ export class UploadPage {
   public eventId: string = '0001';
   public name: string = 'Loading...';
   public description: string = 'Loading...';
+  private taskTable: string = 'bftbs-events';
 
   constructor(public navCtrl: NavController,
               public user: User,
               public db: DynamoDB,
               public config: Config,
               public camera: Camera,
+              public userData: UserData,
               public loadingCtrl: LoadingController) {
     this.attributes = [];
     this.pictureUrl = null;
     this.selectedPhoto = null;
+    
     this.s3 = new AWS.S3({
       'params': {
         'Bucket': aws_user_files_s3_bucket
@@ -43,15 +47,30 @@ export class UploadPage {
       'region': aws_user_files_s3_bucket_region
     });
     this.sub = AWS.config.credentials.identityId;
-    user.getUser().getUserAttributes((err, data) => {
-      this.attributes = data;
-      this.refreshAvatar();
-    });
+    this.refreshInning();
+    
+
   }
 
-  refreshAvatar() {
-    this.s3.getSignedUrl('getObject', {'Key': 'protected/' + this.sub + '/avatar'}, (err, url) => {
-      this.pictureUrl = url;
+  refreshInning() {
+    let currentInning = this.userData.getInning();
+    this.db.getDocumentClient().scan({
+      'TableName': this.taskTable,
+      //'IndexName': 'DateSorted',
+      //'KeyConditionExpression': "#userId = :userId",
+      //'ExpressionAttributeNames': {
+      //  '#userId': 'userId',
+      //},
+      //'ExpressionAttributeValues': {
+      //  ':userId': AWS.config.credentials.identityId
+      //},
+      //'ScanIndexForward': false
+    }).promise().then((data) => {
+      console.log(data.Items);      
+      this.name = data.Items[2].name;
+      this.description = data.Items[2].description;
+    }).catch((err) => {
+      console.log(err);
     });
   }
 
@@ -113,7 +132,7 @@ export class UploadPage {
         'Body': this.selectedPhoto,
         'ContentType': 'image/jpeg'
       }).promise().then((data) => {
-        this.refreshAvatar();
+        //this.refreshAvatar();
         console.log('upload complete:', data);
         loading.dismiss();
       }, err => {
