@@ -44,6 +44,9 @@ export class TasksPage {
       //'ScanIndexForward': false
     }).promise().then((data) => {
       this.items = data.Items;
+      this.items.sort((a, b) => {
+          return a.inning > b.inning;
+      });
       if (this.refresher) {
         this.refresher.complete();
       }
