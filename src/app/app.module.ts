@@ -22,6 +22,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
 import { DynamoDB } from '../providers/aws.dynamodb';
+import { Events } from '../providers/events';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     Camera,
     User,
     Cognito,
-    DynamoDB
+    DynamoDB,
+    Events
   ]
 })
 export class AppModule {}

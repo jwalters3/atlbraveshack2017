@@ -16,7 +16,10 @@
         </ul>        
     </div>
 
-<button ion-button round full color="braves-blue" (click)="upload()">Upload photo</button>
+<button ion-button round full color="braves-blue" (click)="selectPicture()">Upload photo</button>
+<input #picture class="picture-input" type="file" (change)="uploadFromFile($event)" />
 
+<!--<div *ngIf="pictureUrl" class="avatar" [style.background-image]="'url('+ pictureUrl +')'">
+</div>-->
 
 </ion-content>

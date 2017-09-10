@@ -16,13 +16,14 @@ declare const aws_user_files_s3_bucket_region;
 })
 export class UploadPage {
 
-  @ViewChild('avatar') avatarInput;
+  @ViewChild('picture') pictureInput;
 
   private s3: any;
-  public avatarPhoto: string;
+  public pictureUrl: string;
   public selectedPhoto: Blob;
   public attributes: any;
   public sub: string = null;
+  public eventId: string = '0001';
   public name: string = 'Loading...';
   public description: string = 'Loading...';
 
@@ -33,7 +34,7 @@ export class UploadPage {
               public camera: Camera,
               public loadingCtrl: LoadingController) {
     this.attributes = [];
-    this.avatarPhoto = null;
+    this.pictureUrl = null;
     this.selectedPhoto = null;
     this.s3 = new AWS.S3({
       'params': {
@@ -50,7 +51,7 @@ export class UploadPage {
 
   refreshAvatar() {
     this.s3.getSignedUrl('getObject', {'Key': 'protected/' + this.sub + '/avatar'}, (err, url) => {
-      this.avatarPhoto = url;
+      this.pictureUrl = url;
     });
   }
 
@@ -64,7 +65,7 @@ export class UploadPage {
     return new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
   };
 
-  selectAvatar() {
+  selectPicture() {
     const options: CameraOptions = {
       quality: 100,
       targetHeight: 200,
@@ -80,7 +81,8 @@ export class UploadPage {
       this.selectedPhoto  = this.dataURItoBlob('data:image/jpeg;base64,' + imageData);
       this.upload();
     }, (err) => {
-      this.avatarInput.nativeElement.click();
+      //console.info(err);
+      this.pictureInput.nativeElement.click();
       // Handle error
     });
   }
@@ -107,7 +109,7 @@ export class UploadPage {
 
     if (this.selectedPhoto) {
       this.s3.upload({
-        'Key': 'protected/' + this.sub + '/avatar',
+        'Key': 'public/' + this.sub + '/',
         'Body': this.selectedPhoto,
         'ContentType': 'image/jpeg'
       }).promise().then((data) => {

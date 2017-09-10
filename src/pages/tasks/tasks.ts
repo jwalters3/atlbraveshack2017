@@ -4,6 +4,7 @@ import { NavController, ModalController } from 'ionic-angular';
 import { TasksCreatePage } from '../tasks-create/tasks-create';
 
 import { DynamoDB, User } from '../../providers/providers';
+import { Events } from '../../providers/events';
 
 declare var AWS: any;
 
@@ -20,6 +21,7 @@ export class TasksPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
+              public events: Events,
               public db: DynamoDB) {
 
     this.refreshTasks();
@@ -31,28 +33,32 @@ export class TasksPage {
   }
 
   refreshTasks() {
-    this.db.getDocumentClient().scan({
-      'TableName': this.taskTable,
-      //'IndexName': 'DateSorted',
-      //'KeyConditionExpression': "#userId = :userId",
-      //'ExpressionAttributeNames': {
-      //  '#userId': 'userId',
-      //},
-      //'ExpressionAttributeValues': {
-      //  ':userId': AWS.config.credentials.identityId
-      //},
-      //'ScanIndexForward': false
-    }).promise().then((data) => {
-      this.items = data.Items;
-      this.items.sort((a, b) => {
-          return a.inning > b.inning;
-      });
-      if (this.refresher) {
-        this.refresher.complete();
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
+    //this.db.getDocumentClient().scan({
+    //  'TableName': this.taskTable,
+    //  //'IndexName': 'DateSorted',
+    //  //'KeyConditionExpression': "#userId = :userId",
+    //  //'ExpressionAttributeNames': {
+    //  //  '#userId': 'userId',
+    //  //},
+    //  //'ExpressionAttributeValues': {
+    //  //  ':userId': AWS.config.credentials.identityId
+    //  //},
+    //  //'ScanIndexForward': false
+    //}).promise().then((data) => {
+    //  this.items = data.Items;
+    //  this.items.sort((a, b) => {
+    //      return a.inning > b.inning;
+    //  });
+    //  if (this.refresher) {
+    //    this.refresher.complete();
+    //  }
+    //}).catch((err) => {
+    //  console.log(err);
+    //});
+    this.events.refreshData().then((data) => {
+      this.items = data;
+      this.refresher.complete();
+    }).catch(e => { console.log(e); });
   }
 
   generateId() {
