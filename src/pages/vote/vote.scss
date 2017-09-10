@@ -1,4 +1,16 @@
 page-vote {
+
+    ion-header {
+        h3 {
+            text-align: center;
+            color: #D31245;
+        }
+        h4 {
+            padding: 0px 10px;
+            color: #00447C;
+        }
+    }
+    
     ion-content {
         ion-card {
             .vote {

@@ -1,0 +1,27 @@
+page-leaderboard-pics {
+        ion-header {
+            h3 {
+                text-align: center;
+                color: #D31245;
+            }
+            h4 {
+                padding: 0px 10px;
+                color: #00447C;
+            }
+        }
+        ion-content {
+    
+            ion-card {
+                padding-bottom: 10px;
+                img {
+                    padding-bottom:15px;
+                }
+                ion-note {
+                    padding: 0px 0px 15px 15px;
+                    color: #EEB111 !important;
+                    font-size: 20px !important;
+                    font-weight: bold;
+                }
+            }
+        }
+    }

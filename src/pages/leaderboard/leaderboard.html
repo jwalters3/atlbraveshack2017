@@ -15,7 +15,7 @@
 </ion-refresher>
 
     <ion-list> 
-    <ion-item-sliding class="event-item" *ngFor="let item of items; let idx = index;">
+    <ion-item-sliding detail-none (click)="itemSelected(item)" [ngClass]="(item.inning <= currentInning) ? 'event-item' : 'event-item futureinning'" *ngFor="let item of items; let idx = index;">
         <button ion-item>
         <h2 class="inning">Inning {{item.inning}}</h2>
         <h2>{{item.name}}</h2>

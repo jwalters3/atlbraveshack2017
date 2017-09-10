@@ -1,0 +1,38 @@
+
+<ion-header>
+    <h3>{{name}}</h3>
+    <h4>{{description}}</h4>
+</ion-header>
+<ion-content>
+
+        <ion-card *ngFor="let i of items;">
+            <img src="http://via.placeholder.com/300x250">            
+            <ion-note>{{i}} votes</ion-note>
+            <div padding></div>
+        </ion-card>
+                <!--
+        <ion-list>
+          <ion-item>
+            <ion-label>Category</ion-label>
+            <ion-select [(ngModel)]="item.category" name="category">
+              <ion-option value="todo" selected="true">Todo</ion-option>
+              <ion-option value="errand">Errand</ion-option>
+            </ion-select>
+          </ion-item>
+      
+          <ion-item class="custom-item">
+            <ion-label>Task Description</ion-label>
+            <ion-textarea rows="5" [(ngModel)]="item.description" name="description"></ion-textarea>
+          </ion-item>
+      
+          <div padding>
+            <button block icon-start ion-button color="primary" (click)="done()"><ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>Create task</button>
+          </div>
+        </ion-list>
+    -->
+        
+      </ion-content>
+      <ion-footer>    
+            <button block icon-start ion-button color="primary" (click)="done()"><ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>Done</button>
+        </ion-footer>
+      

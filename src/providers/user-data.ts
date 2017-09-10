@@ -18,6 +18,9 @@ export class UserData {
   
   nextInning() {
       this.inning++;
+      if (this.inning > 6) {
+          this.inning = 1;
+      }
   }
 
 

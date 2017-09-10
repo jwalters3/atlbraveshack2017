@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { Config, LoadingController, NavController } from 'ionic-angular';
+import { Config, LoadingController, NavController, ToastController, AlertController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import { DynamoDB, User } from '../../providers/providers';
 import { Events } from '../../providers/events';
 import { UserData } from '../../providers/user-data';
+
 
 declare var AWS: any;
 declare const aws_user_files_s3_bucket;
@@ -29,14 +29,17 @@ export class UploadPage {
   public name: string = 'Loading...';
   public description: string = 'Loading...';
   private photoTable: string = 'bftbs-photos';
+  public photoSubmitted: boolean = false;
 
   constructor(public navCtrl: NavController,
               public user: User,
               public db: DynamoDB,
               public config: Config,
+              private toastCtrl: ToastController,
               public camera: Camera,
               public userData: UserData,
               public events: Events,
+              public alertCtrl: AlertController,
               public loadingCtrl: LoadingController) {
     this.attributes = [];
     this.pictureUrl = null;
@@ -53,6 +56,21 @@ export class UploadPage {
     
 
   }
+
+  changeInning() {
+    this.userData.nextInning();
+    let toast = this.toastCtrl.create({
+      message: 'Inning ' + this.userData.getInning(),
+      duration: 1000,
+      position: 'bottom'
+    });
+    
+    toast.present();
+    this.refreshInning();
+    this.photoSubmitted = false;
+
+  }
+
 
   refreshInning() {
     this.events.refreshData().then(() => {
@@ -88,6 +106,9 @@ export class UploadPage {
   }
 
   selectPicture() {
+    this.showConfirmation();
+  }
+  zzselectPicture() {
     const options: CameraOptions = {
       quality: 100,
       targetHeight: 200,
@@ -123,6 +144,17 @@ export class UploadPage {
     }
   }
 
+
+  showConfirmation() {
+    this.photoSubmitted = true;
+    let alert = this.alertCtrl.create({
+      title: 'Success!',
+      subTitle: 'Your photo has been submitted for this inning. Good Luck!',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
   upload() {
     let loading = this.loadingCtrl.create({
       content: 'Uploading image...'
@@ -137,7 +169,7 @@ export class UploadPage {
         'Body': this.selectedPhoto,
         'ContentType': 'image/jpeg'
       }).promise().then((data) => {
-        //this.refreshAvatar();
+        this.showConfirmation();
         console.log('upload complete:', data);
         this.db.getDocumentClient().put({
           'TableName': this.photoTable,
