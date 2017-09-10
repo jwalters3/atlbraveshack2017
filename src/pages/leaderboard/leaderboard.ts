@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 
-import { NavController, ModalController } from 'ionic-angular';
-import { TasksCreatePage } from '../tasks-create/tasks-create';
+import { NavController, ModalController, Tabs } from 'ionic-angular';
+import { LeaderboardPicsPage } from '../leaderboardpics/leaderboardpics';
 
 import { DynamoDB, User } from '../../providers/providers';
+import { UserData } from '../../providers/user-data';
+import { Events } from '../../providers/events';
 
 declare var AWS: any;
 
@@ -13,17 +15,41 @@ declare var AWS: any;
 })
 export class LeaderboardPage {
 
+  @ViewChild('myTabs') tabRef: Tabs;
+
   public items: any;
   public refresher: any;
+  public currentInning: any;
   private taskTable: string = 'bftbs-events';
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
+              public events: Events,
+              public userData: UserData,
               public db: DynamoDB) {
 
-    this.refreshTasks();
+    
   }
+
+  ionViewDidEnter() {
+    console.log('ionViewDidEnter');
+    this.currentInning = this.userData.getInning();
+    this.refreshTasks();
+   }
+
+   itemSelected(item) {
+      if (item.inning <= this.userData.getInning())
+      {
+        console.log('show leaderboard for ' + item.inning);
+
+        let addModal = this.modalCtrl.create(LeaderboardPicsPage, { 'inning': item.inning });
+        addModal.onDidDismiss(item => {
+          
+        });
+        addModal.present();
+      }
+   }
 
   refreshData(refresher) {
     this.refresher = refresher;
@@ -31,71 +57,10 @@ export class LeaderboardPage {
   }
 
   refreshTasks() {
-    this.db.getDocumentClient().scan({
-      'TableName': this.taskTable,
-      //'IndexName': 'DateSorted',
-      //'KeyConditionExpression': "#userId = :userId",
-      //'ExpressionAttributeNames': {
-      //  '#userId': 'userId',
-      //},
-      //'ExpressionAttributeValues': {
-      //  ':userId': AWS.config.credentials.identityId
-      //},
-      //'ScanIndexForward': false
-    }).promise().then((data) => {
-      this.items = data.Items;
-      if (this.refresher) {
-        this.refresher.complete();
-      }
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-
-  generateId() {
-    var len = 16;
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var charLength = chars.length;
-    var result = "";
-    let randoms = window.crypto.getRandomValues(new Uint32Array(len));
-    for(var i = 0; i < len; i++) {
-      result += chars[randoms[i] % charLength];
-    }
-    return result.toLowerCase();
-  }
-
-  addTask() {
-    let id = this.generateId();
-    let addModal = this.modalCtrl.create(TasksCreatePage, { 'id': id });
-    addModal.onDidDismiss(item => {
-      if (item) {
-        item.userId = AWS.config.credentials.identityId;
-        item.created = (new Date().getTime() / 1000);
-        this.db.getDocumentClient().put({
-          'TableName': this.taskTable,
-          'Item': item,
-          'ConditionExpression': 'attribute_not_exists(id)'
-        }, (err, data) => {
-          if (err) { console.log(err); }
-          this.refreshTasks();
-        });
-      }
-    })
-    addModal.present();
-  }
-
-  deleteTask(task, index) {
-    this.db.getDocumentClient().delete({
-      'TableName': this.taskTable,
-      'Key': {
-        'userId': AWS.config.credentials.identityId,
-        'taskId': task.taskId
-      }
-    }).promise().then((data) => {
-      this.items.splice(index, 1);
-    }).catch((err) => {
-      console.log('there was an error', err);
-    });
+    this.events.refreshData().then((data) => {
+      this.items = data;
+      //this.refresher.complete();
+    }).catch(e => { console.log(e); });
   }
 
 }

@@ -15,6 +15,7 @@ import { AccountPage } from '../pages/account/account';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TasksPage } from '../pages/tasks/tasks';
 import { LeaderboardPage } from '../pages/leaderboard/leaderboard';
+import { LeaderboardPicsPage } from '../pages/leaderboardpics/leaderboardpics';
 import { TasksCreatePage } from '../pages/tasks-create/tasks-create';
 import { VotePage } from '../pages/vote/vote';
 
@@ -39,6 +40,7 @@ import { Photos } from '../providers/photos';
     ConfirmPage,    
     SettingsPage,
     LeaderboardPage,
+    LeaderboardPicsPage,
     AboutPage,
     AccountPage,
     TabsPage,
@@ -57,6 +59,7 @@ import { Photos } from '../providers/photos';
     VotePage,
     SignupPage,
     LeaderboardPage,
+    LeaderboardPicsPage,
     ConfirmPage,
     SettingsPage,
     AboutPage,

@@ -1,23 +1,31 @@
 page-leaderboard {
 
     ion-content {
-        background-color: #D31245 !important;
+
 
         ion-list {
-            ion-item-sliding {
+            ion-item-sliding.futureinning {                
+               .item {
+                       background-color: #666 !important;                       
+                   }
+                }
+            ion-item-sliding {                
                  .item {
-                    background-color: #D31245 !important;
-                 }
-            }
+                    background-color: #D31245;                    
+                    .item-inner {
+                           background-image: none !important;
+                       }
+                 }                 
+            
+                }
             ion-item-sliding:nth-child(odd) {
                 .item {
-                   background-color: #00447C !important;
+                   background-color: #00447C;
                 }
            }
 
-        }
-        .event-item {
-            background-color: #D31245 !important;
+           .event-item {
+            background-color: #D31245;
             ion-label {
 
                 p {
@@ -32,5 +40,8 @@ page-leaderboard {
             }
             
         }
+        
+        }
+        
     }
 }
