@@ -13,6 +13,7 @@ export class VotePage {
 
   public items: any;
   public refresher: any;
+  public voted: any;
   private taskTable: string = 'bftbs-events';
 
   constructor(public navCtrl: NavController,
@@ -20,12 +21,18 @@ export class VotePage {
               public user: User,
               public db: DynamoDB) {
 
+                this.voted = false;
     this.refreshTasks();
   }
 
 
   refreshTasks() {
   
+  }
+
+  vote(item) {
+      this.voted = !this.voted;
+      // to do - save this vote
   }
 
 }

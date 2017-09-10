@@ -1,0 +1,36 @@
+page-leaderboard {
+
+    ion-content {
+        background-color: #D31245 !important;
+
+        ion-list {
+            ion-item-sliding {
+                 .item {
+                    background-color: #D31245 !important;
+                 }
+            }
+            ion-item-sliding:nth-child(odd) {
+                .item {
+                   background-color: #00447C !important;
+                }
+           }
+
+        }
+        .event-item {
+            background-color: #D31245 !important;
+            ion-label {
+
+                p {
+                    color:white;
+                } 
+                h2 {
+                    color: white;                    
+                }
+                h2.inning {
+                    color: #EEB111;
+                }
+            }
+            
+        }
+    }
+}

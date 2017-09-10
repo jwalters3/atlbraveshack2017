@@ -1,0 +1,14 @@
+page-vote {
+    ion-content {
+        ion-card {
+            .vote {
+                margin-top: -60px;
+                color: white;
+            }
+            .voted {
+                margin-top: -60px;
+                color: #D31245;
+            }
+        }
+    }
+}
