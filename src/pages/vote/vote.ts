@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, ToastController } from 'ionic-angular';
 import { DynamoDB, User } from '../../providers/providers';
 import { Events } from '../../providers/events';
 import { Photos } from '../../providers/photos';
@@ -20,18 +20,18 @@ export class VotePage {
   currentEvent: any;
   public items: any;
   public refresher: any;
-  public voted: any;
+  public voteCount: any = 0;
   private photosTable: string = 'bftbs-photos';
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public events: Events,
+              private toastCtrl: ToastController,
               public userData: UserData,
               public user: User,
               public db: DynamoDB,
               public photos: Photos) {
-
-                this.voted = false;    
+                   
   }
 
   ionViewDidEnter() {
@@ -40,7 +40,7 @@ export class VotePage {
         this.name = currentInning.name;
         this.description = currentInning.description;
         this.currentEvent = currentInning.id;
-        this.getEventPictures();
+        this.getEventPictures();        
       }
     
 
@@ -51,19 +51,56 @@ export class VotePage {
       console.log(this.items);
       if (this.refresher) {
         this.refresher.complete();
+        this.loadVotes();
       }
     })
   }
+
+  loadVotes() {
+    // find out how many votes you have left
+    this.voteCount = 0;
+  }
+
+  showVoteRemaining() { 
+    let toast = this.toastCtrl.create({
+      message: (5-this.voteCount) + ' votes remaining',
+      duration: 1000,
+      position: 'middle',
+      cssClass: "vote-prompt"
+    });    
+    toast.present();
+    
+  }
+
+  showVoteLimit() {
+    let toast = this.toastCtrl.create({
+      message: 'You have no more votes',
+      duration: 1000,
+      position: 'middle'      
+    });    
+    toast.present();
+  }
+
 
   vote(item) {
     console.log(item);
       if (item.voted) {
         item.voted = false;
+        this.voteCount--;
+        // to do - remove this vote
+        this.showVoteRemaining();   
       } else {
-        item.voted = true;
+        if (this.voteCount < 5) {
+          item.voted = true;
+          this.voteCount++;
+          // to do - save this vote
+          this.showVoteRemaining();   
+        } else {
+          this.showVoteLimit();
+        }
       }
-      //this.voted = !this.voted;
-      // to do - save this vote
+      
+      
   }
 
 }

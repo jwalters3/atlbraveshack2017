@@ -26,6 +26,7 @@ export class MyApp {
     platform.ready().then(() => {
       user.isAuthenticated().then(() => {
         console.log('you are authenticated!');
+        console.log(user);
         this.rootPage = TabsPage;
         globalActions();
       }).catch(() => {

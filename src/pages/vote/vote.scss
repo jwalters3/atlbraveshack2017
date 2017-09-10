@@ -1,5 +1,5 @@
 page-vote {
-
+    
     ion-header {
         h3 {
             text-align: center;
@@ -24,5 +24,16 @@ page-vote {
                 color: #EEB111;
             }
         }
+    }
+}
+
+.vote-prompt {
+    .toast-wrapper {
+        background-color: #EEB111;         
+        width: 80%;       
+    }
+
+    .toast-message {        
+        text-align:center;        
     }
 }
