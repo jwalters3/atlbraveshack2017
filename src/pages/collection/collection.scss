@@ -1,5 +1,12 @@
 page-collection {
     ion-content {
         margin-top:50px;
+
+        .photos {
+            img {
+                width: 150px;
+                display: inline;
+            }
+        }
     }
 }

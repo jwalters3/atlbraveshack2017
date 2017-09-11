@@ -1,9 +1,28 @@
 
 <ion-content padding>
 
-  Show your previous submitted photos
-  <br/>
-  <br/>
-  Show rewards you have received
+  <ion-card>
+      <ion-card-header>
+          Rewards
+        </ion-card-header>
+      
+        <ion-card-content>
+          <!-- Add card content here! -->
+          Show rewards you have received
+        </ion-card-content>
+  </ion-card>
+  
+  <ion-card class="photos">
+      <ion-card-header>
+          Submissions
+        </ion-card-header>
+      
+        <ion-card-content>
+          <!-- Add card content here! -->
+          <span *ngFor="let photo of userphotos;">
+              <img src="{{photo.url}}">
+            </span>
+        </ion-card-content>
+  </ion-card>
 
 </ion-content>

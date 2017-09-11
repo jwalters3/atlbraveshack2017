@@ -33,6 +33,27 @@ export class Photos {
     })
   }
 
+  getPhotosForUser(user) {
+    return new Promise((resolve, reject) => {
+
+        this.db.getDocumentClient().scan({
+        'TableName': this.photosTable,
+        'FilterExpression':'#user = :u',        
+        'ExpressionAttributeNames': {
+          '#user': 'user',
+        },        
+        'ExpressionAttributeValues': {
+            ':u': user
+        },        
+        'ScanIndexForward': false
+        }).promise().then((data) => {
+            resolve(data.Items);
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
+  }
+
   getUserVotes(user, event) {
     return new Promise((resolve, reject) => {
 
