@@ -41,6 +41,9 @@ export class VotePage {
         this.description = currentInning.description;
         this.currentEvent = currentInning.id;
         this.getEventPictures();        
+        this.photos.getUserVotes(this.user.getUsername()).then(data => {
+          console.log(data);
+        })
       }
     
 

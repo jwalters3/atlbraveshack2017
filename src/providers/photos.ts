@@ -5,7 +5,7 @@ import { DynamoDB } from './aws.dynamodb';
 export class Photos {
 
   private photosTable: string = 'bftbs-photos';
-  private voteTable: string = 'bftbs-photos';
+  private voteTable: string = 'bftbs-votes';
 
   constructor(public db: DynamoDB) {
       //this.refreshData();
@@ -33,14 +33,35 @@ export class Photos {
     })
   }
 
+  getUserVotes(user) {
+    return new Promise((resolve, reject) => {
+
+        this.db.getDocumentClient().scan({
+        'TableName': this.voteTable,
+        //'IndexName': 'bftbs-photos-id-user-index',
+        'FilterExpression': "#usr = :u",
+        'ExpressionAttributeNames': {
+          '#usr': 'username',
+        },
+        'ExpressionAttributeValues': {
+            ':u': user
+        },
+        'ScanIndexForward': false
+        }).promise().then((data) => {
+            resolve(data.Items);
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
+  }
+
   unvote(photoId, user) {
-    let id = "";
     return new Promise((resolve, reject) => {
         this.db.getDocumentClient().delete({
         'TableName': this.voteTable,
         'Key': {
             'photoId': photoId, 
-            'user': user
+            'username': user
         }
         }).promise().then((data) => {
             resolve(data)
@@ -57,7 +78,7 @@ export class Photos {
     return new Promise((resolve, reject) => {
         this.db.getDocumentClient().put({
             'TableName': this.voteTable,
-            'Item': { photoId: photoId, id: id, user: user, created: new Date() },
+            'Item': { photoId: photoId, id: id, username: user, created: new Date().getTime() },
             'ConditionExpression': 'attribute_not_exists(id)'
         }, (err, data) => {
             if (err) { 
