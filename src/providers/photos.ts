@@ -33,18 +33,20 @@ export class Photos {
     })
   }
 
-  getUserVotes(user) {
+  getUserVotes(user, event) {
     return new Promise((resolve, reject) => {
 
         this.db.getDocumentClient().scan({
         'TableName': this.voteTable,
         //'IndexName': 'bftbs-photos-id-user-index',
-        'FilterExpression': "#usr = :u",
+        'FilterExpression': "#usr = :u and contains(#event, :e)",
         'ExpressionAttributeNames': {
           '#usr': 'username',
+          '#event': 'photoId',
         },
         'ExpressionAttributeValues': {
-            ':u': user
+            ':u': user,
+            ':e': '-' + event
         },
         'ScanIndexForward': false
         }).promise().then((data) => {

@@ -41,9 +41,6 @@ export class VotePage {
         this.description = currentInning.description;
         this.currentEvent = currentInning.id;
         this.getEventPictures();        
-        this.photos.getUserVotes(this.user.getUsername()).then(data => {
-          console.log(data);
-        })
       }
     
 
@@ -52,16 +49,23 @@ export class VotePage {
     this.photos.getPhotosForEvent(this.events.getActiveEventId()).then(data => {
       this.items = data;
       console.log(this.items);
+      this.loadVotes();
       if (this.refresher) {
         this.refresher.complete();
-        this.loadVotes();
       }
     })
   }
 
   loadVotes() {
     // find out how many votes you have left
-    this.voteCount = 0;
+    this.photos.getUserVotes(this.user.getUsername(), this.events.getActiveEventId()).then((data: Array<any>) => {
+      console.log(data);
+      this.voteCount = data.length;
+      data.forEach(vote => {
+        let photo = this.items.find(p => { return p.id == vote.photoId; })
+        photo.voted = true;
+      });
+    })
   }
 
   showVoteRemaining() { 
