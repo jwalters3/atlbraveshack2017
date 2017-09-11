@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SettingsPage } from '../settings/settings';
-import { TasksPage } from '../tasks/tasks';
+import { CollectionPage } from '../collection/collection';
 import { UploadPage } from '../upload/upload';
 import { VotePage } from '../vote/vote';
 import { LeaderboardPage } from '../leaderboard/leaderboard';
@@ -15,7 +14,7 @@ export class TabsPage {
   tab1Root = UploadPage;
   tab2Root = VotePage;
   tab3Root = LeaderboardPage;
-  tab4Root = SettingsPage;
+  tab4Root = CollectionPage;
 
   constructor() {
 

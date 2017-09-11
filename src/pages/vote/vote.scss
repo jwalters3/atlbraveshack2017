@@ -12,6 +12,11 @@ page-vote {
     }
 
     ion-content {
+        .scroll-content {
+            // first load of vote page has overlapping content
+            margin-top: 157px !important;    
+        }
+
         ion-card {
             .vote {
                 margin-top: -59px;

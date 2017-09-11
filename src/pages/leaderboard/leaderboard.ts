@@ -20,7 +20,6 @@ export class LeaderboardPage {
   public items: any;
   public refresher: any;
   public currentInning: any;
-  private taskTable: string = 'bftbs-events';
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
