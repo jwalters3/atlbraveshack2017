@@ -25,6 +25,7 @@ export class UploadPage {
   public selectedPhoto: Blob;
   public attributes: any;
   public sub: string = null;
+  public currentInning: any;
   public currentEvent: string;
   public name: string = 'Loading...';
   public description: string = 'Loading...';
@@ -75,6 +76,7 @@ export class UploadPage {
   refreshInning() {
     this.events.refreshData().then(() => {
       let currentInning = this.events.getInningEvent(this.userData.getInning());
+      this.currentInning = this.userData.getInning();
       this.name = currentInning.name;
       this.description = currentInning.description;
       this.currentEvent = currentInning.id;
