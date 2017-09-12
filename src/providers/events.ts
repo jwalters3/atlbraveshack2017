@@ -4,12 +4,12 @@ import { DynamoDB } from './providers';
 @Injectable()
 export class Events {
 
-  private events: any;
+  private events: any = null;
   private activeEvent: string;
   private eventTable: string = 'bftbs-events';
 
   constructor(public db: DynamoDB) {
-      this.refreshData();
+     // this.refreshData();
   }
 
   getActiveEvent() {
@@ -30,18 +30,23 @@ export class Events {
 
   refreshData() {
     return new Promise((resolve, reject) => {
-        this.db.getDocumentClient().scan({
-        'TableName': this.eventTable,
-        }).promise().then((data) => {
-            this.events = data.Items.sort((a, b) => {
-                return a.inning > b.inning;
-            });
+        if (this.events != null) {
             resolve(this.events);
+        }
+        else {
+            this.db.getDocumentClient().scan({
+            'TableName': this.eventTable,
+            }).promise().then((data) => {
+                this.events = data.Items.sort((a, b) => {
+                    return a.inning > b.inning;
+                });
+                resolve(this.events);
 
-        }).catch((err) => {
-            console.log(err);
-            reject(err);
-        });
+            }).catch((err) => {
+                console.log(err);
+                reject(err);
+            });
+        }
     });
   }
 

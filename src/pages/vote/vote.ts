@@ -21,6 +21,7 @@ export class VotePage {
   public items: any;
   public refresher: any;
   public voteCount: any = 0;
+  
   private photosTable: string = 'bftbs-photos';
 
   constructor(public navCtrl: NavController,
@@ -36,11 +37,13 @@ export class VotePage {
 
   ionViewDidEnter() {
         console.log('load votes');
-        let currentInning = this.events.getInningEvent(this.userData.getInning());
-        this.name = currentInning.name;
-        this.description = currentInning.description;
-        this.currentEvent = currentInning.id;
-        this.getEventPictures();        
+        this.events.refreshData().then((data) => {
+          let currentInning = this.events.getInningEvent(this.userData.getInning());
+          this.name = currentInning.name;
+          this.description = currentInning.description;
+          this.currentEvent = currentInning.id;
+          this.getEventPictures();          
+        }).catch(e => { console.log(e); });        
       }
     
 
