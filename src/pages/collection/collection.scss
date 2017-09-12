@@ -3,9 +3,30 @@ page-collection {
         background-color: #EEB111 !important;
         margin-top:50px;
 
+        .card-header {
+            h2 {
+                font-weight: bold;
+            }
+        }
+        .rewardname {
+            font-size: 14px;
+
+        }
+
+        .rewarddate {
+            float:right;
+        }
+        .eventname {
+            color: #00447C;
+            font-weight: bold;
+        }
+        .used {
+            color: red;
+            font-size: 15px;
+        }
         .photos {
             img {
-                width: 150px;
+                width: 120px;
                 display: inline;
             }
         }

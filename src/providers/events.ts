@@ -24,6 +24,10 @@ export class Events {
       return this.events;
   }
 
+  getEvent(eventid) {
+    return this.events.find(e => { return e.id === eventid; });
+  }
+  
   getInningEvent(inning) {
       return this.events.find(e => { return e.inning === inning; });
   }

@@ -1,27 +1,48 @@
 
-<ion-content padding>
+<ion-content padding overflow-scroll="true">
 
   <ion-card>
       <ion-card-header>
-          Rewards
+          <h2>Rewards</h2>
         </ion-card-header>
       
         <ion-card-content>
           <!-- Add card content here! -->
-          Show rewards you have received
+          <ion-list>
+              <ion-item *ngFor="let reward of rewards;">
+                <ion-thumbnail item-start>
+                  <img width="150" src="{{reward.url}}">
+                </ion-thumbnail>
+                <p class="rewarddate">{{reward.date | date:'MM/dd/yyyy'}}</p>
+                <p class="eventname">{{reward.eventname}}</p>
+                <div class="rewardname" text-wrap>{{reward.name}}</div>
+                <div class="used" *ngIf="reward.redeemed">
+                  Redeemed
+                </div>
+                <div  *ngIf="!reward.redeemed">
+                    <button ion-button clear item-end>View</button>
+                  </div>
+              </ion-item>
+            </ion-list>
         </ion-card-content>
   </ion-card>
   
   <ion-card class="photos">
       <ion-card-header>
-          Submissions
+          <h2>Submissions</h2>
         </ion-card-header>
       
         <ion-card-content>
-          <!-- Add card content here! -->
-          <span *ngFor="let photo of userphotos;">
-              <img src="{{photo.url}}">
-            </span>
+        <ion-list>
+            <ion-item *ngFor="let photo of userphotos;">
+              <ion-thumbnail item-start>
+                <img width="100" src="{{photo.url}}">
+              </ion-thumbnail>
+              <h2>{{photo.dateObj | date:'MM/dd/yyyy'}}</h2>
+              <p>{{photo.eventname}}</p>
+              <button ion-button clear item-end>View</button>
+            </ion-item>
+          </ion-list>
         </ion-card-content>
   </ion-card>
 

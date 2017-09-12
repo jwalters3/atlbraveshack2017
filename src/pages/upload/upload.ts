@@ -176,7 +176,7 @@ export class UploadPage {
         console.log('upload complete:', data);
         this.db.getDocumentClient().put({
           'TableName': this.photoTable,
-          'Item': { id: id, event: this.events.getActiveEventId(), user: this.user.getUsername(), url: data.Location },
+          'Item': { id: id, event: this.events.getActiveEventId(), user: this.user.getUsername(), url: data.Location, created: new Date().getTime() },
           'ConditionExpression': 'attribute_not_exists(id)'
         }, (err, data) => {
           if (err) { console.log(err); }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { App } from 'ionic-angular';
 import { User } from '../../providers/providers';
 import { Photos } from '../../providers/photos';
+import { Events } from '../../providers/events';
 
 @Component({
   selector: 'page-collection',
@@ -10,9 +11,14 @@ import { Photos } from '../../providers/photos';
 export class CollectionPage {
 
   public userphotos: any = null;
+  public rewards: any = [
+    { url: 'assets/img/chophouse.jpg', eventname: 'Tomahawk Chop', date: 1505073218577, redeemed: true, name: 'Free Drink with Purchase of Entree from The Chop House'  },
+    {  url: 'assets/img/hfburger.jpg',eventname: 'My First Game', date: 1505241525427, redeemed: false, name: '$2 Off at H&F Burger'  }
+  ];
 
   constructor(public user: User, 
     public photos: Photos,
+    public events: Events,
     public app: App) {
 
   }
@@ -21,7 +27,11 @@ export class CollectionPage {
     console.log('load');
     let currentInning = this.photos.getPhotosForUser(this.user.getUsername()).then((data: Array<any>) => {
       this.userphotos = data;
-      console.log(data);     
+      this.userphotos.forEach(photo => {
+        photo.dateObj = new Date(photo.created);
+        photo.eventname = this.events.getEvent(photo.event).name;
+      });
+      console.log(this.userphotos);     
       data.forEach(vote => {
         //let photo = this.items.find(p => { return p.id == vote.photoId; })
         //photo.voted = true;
