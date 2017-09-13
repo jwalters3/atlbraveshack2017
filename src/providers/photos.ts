@@ -66,8 +66,8 @@ export class Photos {
           '#event': 'photoId',
         },
         'ExpressionAttributeValues': {
-            ':u': user,
-            ':e': '-' + event
+					':u': user,
+					':e': '-' + event
         },
         'ScanIndexForward': false
         }).promise().then((data) => {
@@ -78,6 +78,27 @@ export class Photos {
     })
   }
 
+  getVoteCountForPhoto(photoId) {
+    return new Promise((resolve, reject) => {
+
+        this.db.getDocumentClient().query({
+        'TableName': this.voteTable,
+        //'IndexName': 'bftbs-photos-id-user-index',
+        'KeyConditionExpression': "photoId = :p",
+        //'ExpressionAttributeNames': {
+        //  '#eventId': 'eventId',
+        //},
+        'ExpressionAttributeValues': {
+					':p': photoId
+        },
+				'Select': 'COUNT'
+        }).promise().then((data) => {
+            resolve(data.Items);
+        }).catch((err) => {
+            console.log(err);
+        });
+    })
+  }
   unvote(photoId, user) {
     return new Promise((resolve, reject) => {
         this.db.getDocumentClient().delete({
