@@ -1,0 +1,13 @@
+<ion-content>
+
+
+  <img *ngFor="let photo of userphotos; let idx = index;" src="{{photo.url}}" [ngStyle]="getStyle(idx)" [ngClass]="photo.class" />
+
+  <div [innerHtml]="music"></div>
+
+
+</ion-content>
+
+<ion-footer>    
+  <button block icon-start ion-button color="primary" (click)="done()"><ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>Done</button>
+</ion-footer>

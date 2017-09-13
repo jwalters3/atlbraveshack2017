@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+
+import { NavController, ModalController, Tabs } from 'ionic-angular';
+import { MontagePage } from '../montage/montage';
+
 import { App } from 'ionic-angular';
 import { User } from '../../providers/providers';
 import { Photos } from '../../providers/photos';
@@ -16,7 +20,9 @@ export class CollectionPage {
     {  url: 'assets/img/hfburger.jpg',eventname: 'My First Game', date: 1505241525427, redeemed: false, name: '$2 Off at H&F Burger'  }
   ];
 
-  constructor(public user: User, 
+  constructor(public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public user: User, 
     public photos: Photos,
     public events: Events,
     public app: App) {
@@ -37,6 +43,14 @@ export class CollectionPage {
         //photo.voted = true;
       });
     });
+  }
+
+  showMontage() {
+      let addModal = this.modalCtrl.create(MontagePage, { 'userphotos': this.userphotos });
+      addModal.onDidDismiss(item => {
+        
+      });
+      addModal.present();
   }
    
 

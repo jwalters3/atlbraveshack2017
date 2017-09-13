@@ -11,6 +11,7 @@ import { SignupPage } from '../pages/signup/signup';
 import { ConfirmPage } from '../pages/confirm/confirm';
 import { SettingsPage } from '../pages/settings/settings';
 import { CollectionPage } from '../pages/collection/collection';
+import { MontagePage } from '../pages/montage/montage';
 import { AccountPage } from '../pages/account/account';
 import { TabsPage } from '../pages/tabs/tabs';
 import { TasksPage } from '../pages/tasks/tasks';
@@ -35,6 +36,7 @@ import { Photos } from '../providers/photos';
     MyApp,
     LoginPage,
     CollectionPage,
+    MontagePage,
     VotePage,
     SignupPage,
     UploadPage,
@@ -59,6 +61,7 @@ import { Photos } from '../providers/photos';
     VotePage,
     SignupPage,
     CollectionPage,
+    MontagePage,
     LeaderboardPage,
     LeaderboardPicsPage,
     ConfirmPage,
