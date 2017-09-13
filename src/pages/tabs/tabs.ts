@@ -23,6 +23,10 @@ export class TabsPage {
 
   }
 
+  start() {
+    window.location.href='start.html';
+  }
+
   logout() {
     this.user.logout();
     this.app.getRootNav().setRoot(LoginPage);

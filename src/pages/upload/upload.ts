@@ -59,14 +59,7 @@ export class UploadPage {
   }
 
   changeInning() {
-    this.userData.nextInning();
-    let toast = this.toastCtrl.create({
-      message: 'Inning ' + this.userData.getInning(),
-      duration: 1000,
-      position: 'bottom'
-    });
-    
-    toast.present();
+    this.userData.nextInning();  
     this.refreshInning();
     this.photoSubmitted = false;
 

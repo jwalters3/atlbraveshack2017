@@ -2,19 +2,23 @@ page-vote {
     
     ion-header {
         h3 {
-            text-align: center;
             color: #D31245;
+            font-size: 15px;
+            margin-bottom: 0;
+            padding: 0px 10px;
         }
         h4 {
+            margin-top: 0;
             padding: 0px 10px;
             color: #00447C;
+            font-size: 14px;
         }
     }
 
     ion-content {
         .scroll-content {
             // first load of vote page has overlapping content
-            margin-top: 157px !important;    
+            margin-top: 165px !important;    
         }
 
         ion-card {
