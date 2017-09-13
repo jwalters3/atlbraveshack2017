@@ -38,9 +38,8 @@
               <ion-thumbnail item-start>
                 <img width="100" src="{{photo.url}}">
               </ion-thumbnail>
-              <h2>{{photo.dateObj | date:'MM/dd/yyyy'}}</h2>
-              <p>{{photo.eventname}}</p>
-              <button ion-button clear item-end>View</button>
+              <p class="rewarddate">{{photo.dateObj | date:'MM/dd/yyyy'}}</p>
+              <p class="eventname">{{photo.eventname}}</p>
             </ion-item>
           </ion-list>
         </ion-card-content>

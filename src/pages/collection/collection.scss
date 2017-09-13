@@ -19,12 +19,14 @@ page-collection {
         .eventname {
             color: #00447C;
             font-weight: bold;
+            clear: both;
         }
         .used {
             color: red;
             font-size: 15px;
         }
         .photos {
+            margin-bottom: 60px;
             img {
                 width: 120px;
                 display: inline;
