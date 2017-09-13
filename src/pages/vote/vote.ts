@@ -46,7 +46,9 @@ export class VotePage {
         }).catch(e => { console.log(e); });        
       }
     
-
+  ionViewDidLeave() {
+      this.items = null;
+  }
   
   getEventPictures() {
     this.photos.getPhotosForEvent(this.events.getActiveEventId()).then(data => {
