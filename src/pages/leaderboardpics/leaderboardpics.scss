@@ -13,6 +13,11 @@ page-leaderboard-pics {
         
         ion-content {
     
+            .scroll-content {
+                // first load of vote page has overlapping content
+                margin-top: 117px !important;    
+            }
+
             ion-card {
                 padding-bottom: 10px;
                 img {
@@ -27,3 +32,88 @@ page-leaderboard-pics {
             }
         }
     }
+@-webkit-keyframes fade-in-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-bottom {
+  0% {
+    -webkit-transform: translateY(50px);
+            transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fade-in-bottom2 {
+  0% {
+    -webkit-transform: translateY(70px);
+            transform: translateY(70px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-bottom2 {
+  0% {
+    -webkit-transform: translateY(70px);
+            transform: translateY(70px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fade-in-bottom3 {
+  0% {
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fade-in-bottom3 {
+  0% {
+    -webkit-transform: translateY(100px);
+            transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+.fade-in-bottom:first-child {
+	-webkit-animation: fade-in-bottom 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in-bottom 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+.fade-in-bottom:nth-child(2) {
+	-webkit-animation: fade-in-bottom2 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.1s both;
+	        animation: fade-in-bottom2 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.1s both;
+}
+.fade-in-bottom {
+	-webkit-animation: fade-in-bottom3 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.2s both;
+	        animation: fade-in-bottom3 0.6s cubic-bezier(0.390, 0.575, 0.565, 1.000) 0.2s both;
+}

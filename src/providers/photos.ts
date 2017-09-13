@@ -89,11 +89,11 @@ export class Photos {
         //  '#eventId': 'eventId',
         //},
         'ExpressionAttributeValues': {
-					':p': photoId
+            ':p': photoId
         },
 				'Select': 'COUNT'
         }).promise().then((data) => {
-            resolve(data.Items);
+            resolve(data.Count);
         }).catch((err) => {
             console.log(err);
         });

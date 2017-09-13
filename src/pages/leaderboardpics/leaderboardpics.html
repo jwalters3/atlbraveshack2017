@@ -5,15 +5,20 @@
 </ion-header>
 <ion-content>
 
-        <ion-card *ngFor="let i of items;">
-						<img src="{{i.src}}">            
-            <ion-note>{{i.votes}} votes</ion-note>
-            <div padding></div>
+        <ion-card *ngFor="let i of items;" style="opacity:0;" class="fade-in-bottom">
+						<img src="{{i.url}}" width="300" height="250"/>            
+            <div padding>
+                <ion-note [ngPlural]="i.votes || 0">
+                    {{i.votes}}
+                    <ng-template ngPluralCase="=1">vote</ng-template>
+                    <ng-template ngPluralCase="other">votes</ng-template>
+                </ion-note>
+            </div>
         </ion-card>
             
         
       </ion-content>
       <ion-footer>    
             <button block icon-start ion-button color="primary" (click)="done()"><ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>Done</button>
-        </ion-footer>
+    </ion-footer>
       

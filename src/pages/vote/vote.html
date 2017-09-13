@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-    <ion-card *ngFor="let i of items;">
+    <ion-card *ngFor="let i of items;" style="opacity:0;" class="fade-in-bottom">
             <img src="{{i.url}}" width="300" height="250"/>        
             <button (click)="vote(i)" [ngClass]="i.voted ? 'voted' : 'vote'" ion-button icon-left>
               <ion-icon name="thumbs-up"></ion-icon>
